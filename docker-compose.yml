@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    # volumes:
+    #   - ./frontend:/app
+
+  backend:
+    build:
+      context: ./my-nest-project
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    # volumes:
+    #   - ./my-nest-project:/app
+    environment:
+      - MONGODB_URI=mongodb://admin:wwwwww@ac-zmqhnsn-shard-00-00.9da6u98.mongodb.net:27017,ac-zmqhnsn-shard-00-01.9da6u98.mongodb.net:27017,ac-zmqhnsn-shard-00-02.9da6u98.mongodb.net:27017/?ssl=true&replicaSet=atlas-fyf2w7-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0
+      - PORT=3001
+      - JWT_SECRET=secretKey
+      - SENDER=pddtesty@yandex.by
+      - PASS_MAIL=rdrlmehmoifhxnon
+    depends_on:
+      - frontend
